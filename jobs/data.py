@@ -112,7 +112,7 @@ jobs = [
                     "<li>Оклад от 140 000 руб на руки.;</li> <li>Удаленное сотрудничество с выстроенными процессами;"
                     "</li> <li>Оформление по ТК РФ.</li> <li>Амбициозные проекты, интересные с профессиональной точки "
                     "зрения задачи;</li> <li>Команда профессионалов.</li> </ul> <p>В отклике обязательно "
-                    "сопроводительное письмо, почему именно вы подходите на эту вакансию.</p>"}
+                    "сопроводительное письмо, почему именно вы подходите на эту вакансию.</p>"},
 
 ]
 
@@ -167,7 +167,7 @@ companies = [
      "logo": "logo8.png",
      "employee_count": "13",
      "location": "Москва",
-     "description": "Реализуем проекты любой сложности в digital-сфере"}
+     "description": "Реализуем проекты любой сложности в digital-сфере"},
 
 ]
 
@@ -182,42 +182,8 @@ specialties = [
     {"code": "design", "title": "Дизайн"},
     {"code": "products", "title": "Продукты"},
     {"code": "management", "title": "Менеджмент"},
-    {"code": "testing", "title": "Тестирование"}
+    {"code": "testing", "title": "Тестирование"},
 
 ]
 
 """ Статусы в формате Enum """
-
-#
-#
-# class EducationChoices(Enum):
-#     missing = 'Отсутствует'
-#     secondary = 'Среднее'
-#     vocational = 'Средне-специальное'
-#     incomplete_higher = 'Неполное высшее'
-#     higher = 'Высшее'
-#
-#
-# class GradeChoices(Enum):
-#     intern = 'intern'
-#     junior = 'junior'
-#     middle = 'middle'
-#     senior = 'senior'
-#     lead = 'lead'
-#
-#
-# class SpecialtyChoices(Enum):
-#     frontend = 'Фронтенд'
-#     backend = 'Бэкенд'
-#     gamedev = 'Геймдев'
-#     devops = 'Девопс'
-#     design = 'Дизайн'
-#     products = 'Продукты'
-#     management = 'Менеджмент'
-#     testing = 'Тестирование'
-#
-#
-# class WorkStatusChoices(Enum):
-#     not_in_search = 'Не ищу работу'
-#     consideration = 'Рассматриваю предложения'
-#     in_search = 'Ищу работу'

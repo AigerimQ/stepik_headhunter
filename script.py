@@ -1,5 +1,7 @@
 import os
 import django
+from django.db.models import Value
+from django.db.models.functions import Replace
 
 from jobs.data import companies, specialties, jobs
 
@@ -9,19 +11,19 @@ django.setup()
 from jobs.models import Vacancy, Company, Specialty
 
 if __name__ == '__main__':
-    # for company in companies:
-    #     Company.objects.create(
-    #         name=company['title'],
-    #         location=company['location'],
-    #         description=company['description'],
-    #         employee_count=company['employee_count'],
-    #     )
-    #
-    # for specialty in specialties:
-    #     Specialty.objects.create(
-    #         code=specialty['code'],
-    #         title=specialty['title'],
-    #     )
+    for company in companies:
+        Company.objects.create(
+            name=company['title'],
+            location=company['location'],
+            description=company['description'],
+            employee_count=company['employee_count'],
+        )
+
+    for specialty in specialties:
+        Specialty.objects.create(
+            code=specialty['code'],
+            title=specialty['title'],
+        )
 
     for job in jobs:
         Vacancy.objects.create(
@@ -34,3 +36,5 @@ if __name__ == '__main__':
             salary_max=job['salary_to'],
             published_at=job['posted'],
         )
+
+    Vacancy.objects.update(skills=Replace('skills', Value(', '), Value(' • ')))
