@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'e+c-u(*0log90wh3m7f7nxi$b35k=-ms81e*qkl@fuy5y_1-(n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -124,3 +124,11 @@ STATIC_URL = '/static/'
 FORMAT_MODULE_PATH = [
     'jobs.formats',
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'
+
+MEDIA_COMPANY_IMAGE_DIR = 'company_images'
+
+MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'

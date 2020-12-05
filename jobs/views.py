@@ -86,3 +86,38 @@ class VacancyView(View):
         }
 
         return render(request, 'vacancy.html', context=context)
+
+
+class ApplicationSendView(View):
+    def get(self, request):
+        return render(request, 'sent.html')
+
+
+class MyCompanyView(View):
+    def get(self, request):
+        return render(request, 'company.html')
+
+
+class MyCompanyVacanciesView(View):
+    def get(self, request):
+        return render(request, 'vacancy-list.html')
+
+
+class MyVacancyView(View):
+    def get(self, request):
+        return render(request, 'vacancy.html')
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, '.html')
+
+
+class RegisterView(View):
+    def get(self, request):
+        return render(request, '.html')
+
+
+class LogoutView(View):
+    def get(self, request):
+        return render(request, '.html')

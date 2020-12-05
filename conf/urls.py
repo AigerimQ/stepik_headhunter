@@ -17,16 +17,27 @@ from django.contrib import admin
 from django.urls import path
 
 from conf.views import MainView, custom_handler404, custom_handler500
-from jobs.views import VacanciesView, SpecializationVacanciesView, CompanyView, VacancyView
+from jobs.views import VacanciesView, SpecializationVacanciesView, CompanyView, VacancyView, ApplicationSendView, \
+    MyCompanyView, MyCompanyVacanciesView
+from django.conf import settings
+from django.conf.urls.static import static
 
 handler404 = custom_handler404
 handler500 = custom_handler500
 
 urlpatterns = [
     path('', MainView.as_view(), name='main'),
-    path('vacancies', VacanciesView.as_view(), name='vacancies'),
+    path('vacancies/', VacanciesView.as_view(), name='vacancies'),
     path('vacancies/cat/<str:specialty>', SpecializationVacanciesView.as_view(), name='specialization'),
     path('companies/<int:company_id>', CompanyView.as_view(), name='company'),
     path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
+    path('vacancies/<int:vacancy_id>/send',  ApplicationSendView.as_view, name='application_send'),
+    path('mycompany/', MyCompanyView.as_view, name='my_company'),
+    path('mycompany/vacancies', MyCompanyVacanciesView.as_view, name='my_vacancies'),
+    path(),
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
