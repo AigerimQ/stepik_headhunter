@@ -10,7 +10,7 @@ class Company(models.Model):
     logo = models.ImageField(upload_to=MEDIA_COMPANY_IMAGE_DIR)
     description = models.TextField()
     employee_count = models.IntegerField()
-    owner = models.OneToOneField(get_user_model(), on_delete=models.PROTECT,
+    owner = models.OneToOneField(get_user_model(), blank=True, null=True, on_delete=models.PROTECT,
                                  related_name='company')
 
     def __str__(self):

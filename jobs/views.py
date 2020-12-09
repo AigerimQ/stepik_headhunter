@@ -1,8 +1,11 @@
+from django.contrib import messages
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.views import View
 
+from jobs.forms import RegistrationForm
 from jobs.models import Vacancy, Specialty, Company
 
 
@@ -108,16 +111,20 @@ class MyVacancyView(View):
         return render(request, 'vacancy.html')
 
 
-class LoginView(View):
-    def get(self, request):
-        return render(request, '.html')
+class MyLoginView(LoginView):
+    redirect_authenticated_user = True
+    template_name = 'login.html'
 
 
 class RegisterView(View):
-    def get(self, request):
-        return render(request, '.html')
 
-
-class LogoutView(View):
     def get(self, request):
-        return render(request, '.html')
+        return render(request, 'register.html', {'form': RegistrationForm()})
+
+    def post(self, request):
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Аккаунт успешно создан')
+            return redirect('login')
+        return render(request, 'register.html', {'form': form})

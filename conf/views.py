@@ -18,8 +18,8 @@ class MainView(View):
 
     def get(self, request):
         head_title = ""
-        specialties = Specialty.objects.values('code', 'title', 'picture').annotate(Count('vacancies'))
-        companies = Company.objects.values('id', 'name', 'logo').annotate(Count('vacancies'))
+        specialties = Specialty.objects.all().annotate(Count('vacancies'))
+        companies = Company.objects.all().annotate(Count('vacancies'))
 
         context = {
             "head_title": head_title,
