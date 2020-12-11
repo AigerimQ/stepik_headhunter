@@ -23,7 +23,7 @@
                     <div class="col-6 col-lg-8">
                       <a href="{% url 'my_vacancy' vacancy.id %}" class="mb-1">{{ vacancy.title }}</a>
                       <p class="mb-1">
-                        <span class="mr-4">От {{vacancy.salary_min}} до {{ vacancy.salary_max }} руб.</span><a href="#" class="text-info">3 отклика</a>
+                        <span class="mr-4">От {{vacancy.salary_min}} до {{ vacancy.salary_max }} руб.</span>
                       </p>
                     </div>
                     <div class="col-6 col-lg-4 text-right">
@@ -32,9 +32,11 @@
                   </div>
                 </div>
               </div>
+              {% empty %}
+              <p class="alert alert-info" role="alert">У вас пока нет вакансий, но вы можете создать первую!</p>
               {% endfor %}
               <div class="btn mt-3 ">
-                <a href="{% url 'my_vacancy' 1 %}" class="btn btn-outline-info">Добавить вакансию</a>
+                <a href="{% url 'my_vacancy_create' %}" class="btn btn-outline-info">Добавить вакансию</a>
               </div>
             </section>
           </div>

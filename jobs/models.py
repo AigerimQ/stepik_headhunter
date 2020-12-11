@@ -41,10 +41,13 @@ class Vacancy(models.Model):
                f'salary_min={self.salary_min}, salary_max={self.salary_max}'
 
 
-# Доработать поле written_phone
 class Application(models.Model):
     written_username = models.CharField(max_length=120)
     written_phone = models.CharField(max_length=12)
     written_cover_letter = models.TextField()
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name="applications")
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='applications')
+
+    def __str__(self):
+        return f'id={self.pk}, written_username={self.written_username}, written_phone={self.written_phone}, ' \
+               f'written_cover_letter={self.written_cover_letter},'

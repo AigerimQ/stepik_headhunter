@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from jobs.models import Application, Company
+from jobs.models import Application, Company, Vacancy
 
 
 class RegistrationForm(UserCreationForm):
@@ -34,3 +34,10 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ('name', 'location', 'logo', 'description', 'employee_count')
+
+
+class VacancyForm(forms.ModelForm):
+
+    class Meta:
+        model = Vacancy
+        fields = ('title', 'specialty', 'skills', 'description', 'salary_min', 'salary_max')
