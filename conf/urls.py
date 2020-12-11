@@ -19,7 +19,7 @@ from django.urls import path
 
 from conf.views import MainView, custom_handler404, custom_handler500
 from jobs.views import VacanciesView, SpecializationVacanciesView, CompanyView, VacancyView, ApplicationSendView, \
-    MyCompanyView, MyCompanyVacanciesView, MyVacancyView, MyLoginView, RegisterView
+    MyCompanyView, MyCompanyVacanciesView, MyVacancyView, MyLoginView, RegisterView, MyCompanyCreateView, LetsStartView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -34,6 +34,8 @@ urlpatterns = [
     path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
     path('vacancies/<int:vacancy_id>/send',  ApplicationSendView.as_view(), name='application_send'),
     path('mycompany/', MyCompanyView.as_view(), name='my_company'),
+    path('mycompany/lest_start', LetsStartView.as_view(), name='lets_start'),
+    path('mycompany/create', MyCompanyCreateView.as_view(), name='my_company_create'),
     path('mycompany/vacancies', MyCompanyVacanciesView.as_view(), name='my_vacancies'),
     path('mycompany/vacancies/<int:vacancy_id>', MyVacancyView.as_view(), name='my_vacancy'),
     path('register/', RegisterView.as_view(), name='register'),

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jobs',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
 LOGIN_REDIRECT_URL = 'main'
 
 LOGOUT_REDIRECT_URL = '/login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

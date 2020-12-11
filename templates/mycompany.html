@@ -15,14 +15,14 @@
       <div class="col-12 col-lg-8">
         <div class="card">
           <div class="card-body px-4 pb-4">
-            <form method = "POST">
+            <form action = "/mycompany/" method = "POST">
               <div class="text-center mt-5 b-1">
                 <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
                 <p class="h5 font-weight-light">Моя компания</p>
               </div>
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn btn-primary btn-lg btn-block mb-5" type="submit">Сохранить</button>
+                <button class="btn btn-primary btn-lg btn-block mb-5" type="submit">Сохранить изменения</button>
             </form>
           </div>
         </div>

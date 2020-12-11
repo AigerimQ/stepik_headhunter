@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from jobs.forms import RegistrationForm
+from jobs.forms import RegistrationForm, ApplicationForm, CompanyForm
 from jobs.models import Vacancy, Specialty, Company
 
 
@@ -86,29 +86,115 @@ class VacancyView(View):
             "head_title": head_title,
             "vacancy": vacancy,
             "company": company,
+            "form": ApplicationForm,
         }
 
         return render(request, 'vacancy.html', context=context)
 
+    def post(self, request, vacancy_id):
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user = request.user
+            application.vacancy_id = vacancy_id
+            application.save()
+            return redirect(f'{vacancy_id}/send', {'vacancy_id': vacancy_id})
+        return render(request, request.path, {'form': form})
+
 
 class ApplicationSendView(View):
-    def get(self, request):
-        return render(request, 'sent.html')
+    def get(self, request, vacancy_id):
+        return render(request, 'sent.html', {'vacancy_id': vacancy_id})
+
+    # Отклик отправлен
 
 
 class MyCompanyView(View):
     def get(self, request):
-        return render(request, 'company.html')
+        head_title = "Моя компания | "
+        try:
+            company = Company.objects.get(owner=request.user.id)
+        except Company.DoesNotExist:
+            return redirect('lets_start')
+
+        context = {
+            "head_title": head_title,
+            "company": company,
+            'form': CompanyForm(instance=company),
+        }
+
+        return render(request, 'mycompany.html', context=context)
+
+    def post(self, request):
+        company = Company.objects.get(owner=request.user.id)
+        form = CompanyForm(request.POST, request.FILES, instance=company)
+        if form.is_valid():
+            form.save()
+            return redirect(request.path)
+        return render(request, 'mycompany.html', {'form': form})
+
+
+class LetsStartView(View):
+    def get(self, request):
+        return render(request, 'company-lets_start.html')
+
+
+class MyCompanyCreateView(View):
+    def get(self, request):
+        head_title = "Моя компания | "
+        return render(request, 'company-create.html', {'head_title': head_title, 'form': CompanyForm(), })
+
+    def post(self, request):
+        form = CompanyForm(request.POST, request.FILES)
+        if form.is_valid():
+            company = form.save(commit=False)
+            company.owner = request.user
+            company.save()
+            return redirect('mycompany.html')
+        return render(request, 'company-create.html', {'form': form})
 
 
 class MyCompanyVacanciesView(View):
     def get(self, request):
-        return render(request, 'vacancy-list.html')
+        head_title = "Мои вакансии | "
+        company = Company.objects.get(owner=request.user.id)
+        vacancies = Vacancy.objects.filter(company_id=company.id).values('id', 'title', 'salary_min', 'salary_max')
+        context = {
+            "head_title": head_title,
+            "vacancies": vacancies,
+        }
+
+        return render(request, 'vacancy-list.html', context=context)
 
 
 class MyVacancyView(View):
-    def get(self, request):
-        return render(request, 'vacancy.html')
+    def get(self, request, vacancy_id):
+        head_title = "Моя вакансия | "
+        vacancy = Vacancy.objects.get(id=vacancy_id)
+
+        context = {
+            "head_title": head_title,
+            "vacancy": vacancy,
+            'form': CompanyForm(instance=vacancy),
+        }
+
+        return render(request, 'vacancy-edit.html', context=context)
+
+    # def post(self, request):
+    #     company = Company.objects.get(owner=request.user.id)
+    #     form = CompanyForm(request.POST, request.FILES, instance=company)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect(request.path)
+    #     return render(request, 'mycompany.html', {'form': form})
+
+    # def post(self, request):
+    #     form = RegistrationForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.success(request, 'Аккаунт успешно создан')
+    #         return redirect('login')
+    #     return render(request, 'register.html', {'form': form})
 
 
 class MyLoginView(LoginView):
@@ -128,3 +214,5 @@ class RegisterView(View):
             messages.success(request, 'Аккаунт успешно создан')
             return redirect('login')
         return render(request, 'register.html', {'form': form})
+
+# Вакансии компании
